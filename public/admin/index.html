@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LinguaVibe — Админка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <header class="admin-header">
+      <a href="/" class="back-link">← На сайт</a>
+      <h1>LinguaVibe Admin</h1>
+      <p class="subtitle">Управление премиум-подписками (аналог docker compose exec …)</p>
+    </header>
+
+    <section id="authSection" class="card hidden">
+      <h2>Вход</h2>
+      <p class="hint">Введите пароль админки сайта (SITE_ADMIN_PASSWORD).</p>
+      <label class="field">
+        <span>Пароль</span>
+        <input type="password" id="siteAdminPassword" autocomplete="current-password">
+      </label>
+      <button type="button" class="btn btn-primary" id="savePasswordBtn">Войти</button>
+    </section>
+
+    <main id="mainPanel" class="hidden">
+      <section class="card">
+        <h2>Пользователь</h2>
+        <label class="field">
+          <span>User ID (UUID из приложения)</span>
+          <input type="text" id="userId" placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" spellcheck="false">
+        </label>
+        <label class="field">
+          <span>Дней премиума</span>
+          <input type="number" id="premiumDays" min="1" max="3650" value="31">
+        </label>
+        <div class="actions">
+          <button type="button" class="btn btn-secondary" id="checkBtn">Проверить статус</button>
+          <button type="button" class="btn btn-primary" id="grantBtn">Выдать премиум</button>
+        </div>
+        <p class="hint cli-hint">
+          CLI: <code>docker compose exec app node scripts/check-user.js &lt;user_id&gt;</code><br>
+          CLI: <code>docker compose exec app node scripts/grant-premium.js &lt;user_id&gt; [days]</code>
+        </p>
+      </section>
+
+      <section class="card" id="resultCard" hidden>
+        <h2>Результат</h2>
+        <pre id="resultOutput"></pre>
+      </section>
+
+      <section class="card">
+        <div class="list-header">
+          <h2>Все подписки</h2>
+          <button type="button" class="btn btn-secondary btn-sm" id="refreshListBtn">Обновить</button>
+        </div>
+        <p id="listLoading" class="hint hidden">Загрузка…</p>
+        <div class="table-wrap">
+          <table id="subscriptionsTable">
+            <thead>
+              <tr>
+                <th>User ID</th>
+                <th>Премиум</th>
+                <th>Истекает</th>
+                <th>Оплата</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="toast" class="toast hidden" role="status"></div>
+  </div>
+  <script src="/admin/admin.js"></script>
+</body>
+</html>

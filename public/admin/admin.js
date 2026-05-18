@@ -1,9 +1,3 @@
-const STORAGE_KEY = 'linguavibe_site_admin_password';
-
-const authSection = document.getElementById('authSection');
-const mainPanel = document.getElementById('mainPanel');
-const siteAdminPasswordInput = document.getElementById('siteAdminPassword');
-const savePasswordBtn = document.getElementById('savePasswordBtn');
 const userIdInput = document.getElementById('userId');
 const premiumDaysInput = document.getElementById('premiumDays');
 const checkBtn = document.getElementById('checkBtn');
@@ -14,17 +8,6 @@ const refreshListBtn = document.getElementById('refreshListBtn');
 const listLoading = document.getElementById('listLoading');
 const subscriptionsTable = document.getElementById('subscriptionsTable');
 const toast = document.getElementById('toast');
-
-function getSiteAdminPassword() {
-  return sessionStorage.getItem(STORAGE_KEY) || '';
-}
-
-function apiHeaders() {
-  const headers = { Accept: 'application/json' };
-  const pwd = getSiteAdminPassword();
-  if (pwd) headers['X-Site-Admin'] = pwd;
-  return headers;
-}
 
 function showToast(message, isError = false) {
   toast.textContent = message;
@@ -42,12 +25,18 @@ function showResult(data) {
 async function apiFetch(path, options = {}) {
   const res = await fetch(path, {
     ...options,
+    credentials: 'same-origin',
     headers: {
-      ...apiHeaders(),
+      Accept: 'application/json',
       ...(options.body ? { 'Content-Type': 'application/json' } : {}),
       ...options.headers,
     },
   });
+
+  if (res.status === 401) {
+    window.location.href = '/login';
+    throw new Error('Требуется авторизация');
+  }
 
   let payload;
   try {
@@ -153,38 +142,8 @@ async function loadSubscriptions() {
   }
 }
 
-async function initAuth() {
-  authSection.classList.add('hidden');
-  mainPanel.classList.remove('hidden');
-
-  try {
-    await loadSubscriptions();
-  } catch (err) {
-    if (String(err.message).includes('401') || String(err.message).includes('пароль')) {
-      mainPanel.classList.add('hidden');
-      authSection.classList.remove('hidden');
-    }
-  }
-}
-
-savePasswordBtn.addEventListener('click', async () => {
-  const pwd = siteAdminPasswordInput.value;
-  sessionStorage.setItem(STORAGE_KEY, pwd);
-  authSection.classList.add('hidden');
-  mainPanel.classList.remove('hidden');
-  try {
-    await loadSubscriptions();
-    showToast('Вход выполнен');
-  } catch (err) {
-    sessionStorage.removeItem(STORAGE_KEY);
-    showToast(err.message, true);
-    authSection.classList.remove('hidden');
-    mainPanel.classList.add('hidden');
-  }
-});
-
 checkBtn.addEventListener('click', checkUser);
 grantBtn.addEventListener('click', grantPremium);
 refreshListBtn.addEventListener('click', loadSubscriptions);
 
-initAuth();
+loadSubscriptions();

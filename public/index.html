@@ -75,7 +75,7 @@
                     <img src="/assets/images/screenshot01.png" alt="Главный экран LinguaVibe">
                 </div>
                 
-                <a href="https://www.rustore.ru/catalog/app/com.xenoff.linguavibe" class="floating-card card-1 store-badge" target="_blank" rel="noopener noreferrer">
+                <a href="https://www.rustore.ru/catalog/app/com.xenoff.linguavibe" id="download" class="floating-card card-1 store-badge" target="_blank" rel="noopener noreferrer">
                     <svg class="store-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -238,52 +238,96 @@
     <section class="pricing" id="pricing">
         <div class="section-inner">
             <div class="section-header">
-                <div class="section-label">💎 Тариф</div>
-                <h2 class="section-title">Одна цена — всё включено</h2>
+                <div class="section-label">💎 Тарифы</div>
+                <h2 class="section-title">Free и Premium — сравните возможности</h2>
                 <p class="section-subtitle">
-                    Без скрытых платежей. Полный доступ ко всем функциям приложения.
+                    Начните бесплатно или сразу откройте полный доступ без ограничений за фиксированную цену в месяц.
                 </p>
             </div>
-            <div class="pricing-card">
-                <div class="pricing-popular">Популярный выбор</div>
-                <div class="pricing-name">Premium</div>
-                <p class="pricing-desc">Полный доступ без ограничений</p>
-                <div class="pricing-amount">
-                    <span class="pricing-value">349</span>
-                    <span class="pricing-currency">₽</span>
-                </div>
-                <div class="pricing-period">в месяц</div>
-                <ul class="pricing-features">
-                    <li>
-                        <span class="check">✓</span>
-                        Безлимитные AI-переводы
-                    </li>
-                    <li>
-                        <span class="check">✓</span>
-                        Безлимитный парсинг URL
-                    </li>
-                    <li>
-                        <span class="check">✓</span>
-                        Все 5 языков обучения
-                    </li>
-                    <li>
-                        <span class="check">✓</span>
-                        Карточки SRS без ограничений
-                    </li>
-                    <li>
-                        <span class="check">✓</span>
-                        Озвучка TTS
-                    </li>
-                    <li>
-                        <span class="check">✓</span>
-                        Экспорт и импорт данных
-                    </li>
-                    <li>
-                        <span class="check">✓</span>
-                        Тёмная тема
-                    </li>
-                </ul>
-                <button class="pricing-btn" id="checkoutBtn">Оформить подписку</button>
+            <div class="pricing-grid">
+                <article class="pricing-card pricing-card--free">
+                    <div class="pricing-tier-label">Базовый</div>
+                    <div class="pricing-name">Free</div>
+                    <p class="pricing-desc">Для знакомства с приложением и лёгкого ритма обучения</p>
+                    <div class="pricing-amount pricing-amount--free">
+                        <span class="pricing-value pricing-value--free">0</span>
+                        <span class="pricing-currency pricing-currency--free">₽</span>
+                    </div>
+                    <div class="pricing-period">в месяц</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Ограниченные AI-переводы (до 20 слов в день)</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Базовый парсинг URL</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Изучение 1 языка на выбор</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Карточки SRS (до 50 слов в словаре)</span>
+                        </li>
+                        <li>
+                            <span class="cross" aria-hidden="true">✕</span>
+                            <span class="pricing-feature-muted">Безлимитная озвучка TTS</span>
+                        </li>
+                        <li>
+                            <span class="cross" aria-hidden="true">✕</span>
+                            <span class="pricing-feature-muted">Экспорт и импорт данных (бэкапы)</span>
+                        </li>
+                        <li>
+                            <span class="cross" aria-hidden="true">✕</span>
+                            <span class="pricing-feature-muted">Тёмная тема</span>
+                        </li>
+                    </ul>
+                    <a href="https://www.rustore.ru/catalog/app/com.xenoff.linguavibe" class="pricing-btn pricing-btn--free" target="_blank" rel="noopener noreferrer">Начать бесплатно</a>
+                </article>
+
+                <article class="pricing-card pricing-card--premium">
+                    <div class="pricing-popular">Популярный выбор</div>
+                    <div class="pricing-name">Premium</div>
+                    <p class="pricing-desc">Полный доступ без ограничений — всё для уверенного прогресса</p>
+                    <div class="pricing-amount">
+                        <span class="pricing-value">349</span>
+                        <span class="pricing-currency">₽</span>
+                    </div>
+                    <div class="pricing-period">в месяц</div>
+                    <ul class="pricing-features">
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Безлимитные AI-переводы</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Безлимитный парсинг URL</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Все 5 языков обучения</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Карточки SRS без ограничений</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Озвучка TTS</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Экспорт и импорт данных</span>
+                        </li>
+                        <li>
+                            <span class="check" aria-hidden="true">✓</span>
+                            <span>Тёмная тема</span>
+                        </li>
+                    </ul>
+                    <button type="button" class="pricing-btn" id="checkoutBtn">Оформить подписку</button>
+                </article>
             </div>
         </div>
     </section>
